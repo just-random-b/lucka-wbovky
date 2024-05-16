@@ -5,88 +5,100 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Map Overlay Web App</title>
     <style>
-        /* Style for the square spaces */
-        .square {
-            width: calc(100vw / var(--columns)); /* Adjust based on your preference */
-            height: calc(100vw / var(--columns)); /* Adjust based on your preference */
-            border: 1px solid black;
-            display: inline-block;
+        /* General styles */
+        body {
             margin: 0;
             padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            flex-direction: column;
         }
 
         /* Style for the grid container */
-        .grid-container {
+        #gridContainer {
             display: grid;
-            grid-template-columns: repeat(var(--columns), 1fr);
-            grid-template-rows: repeat(var(--rows), 1fr);
-            grid-gap: 1px; /* Adjust gap size as needed */
-            position: relative; /* Required for positioning the map */
-            width: 100vw; /* Full width of the viewport */
-            height: 100vh; /* Full height of the viewport */
-            overflow: hidden; /* Prevent horizontal scrolling on mobile */
+            grid-template-columns: repeat(25, 20px); /* 25 columns */
+            grid-template-rows: repeat(25, 20px); /* 25 rows */
+            grid-gap: 1px; /* Gap between grid cells */
+            background-color: black; /* Background color of the grid */
+            padding: 1px; /* Ensure the border is visible */
+            position: relative; /* Required for positioning the red square */
         }
 
-        /* Style for the map image */
-        #map {
+        /* Style for the square spaces */
+        .square {
+            width: 100%; /* Occupy the full width of the grid cell */
+            height: 100%; /* Occupy the full height of the grid cell */
+            border: 1px solid white; /* White border around each square */
+            box-sizing: border-box; /* Include border in dimensions */
+            background-color: transparent; /* Transparent background for squares */
+        }
+
+        /* Style for the red square */
+        .red-square {
+            background-color: red;
+            width: 20px;
+            height: 20px;
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%; /* Make map image cover the full grid */
-            height: 100%; /* Make map image cover the full grid */
-            object-fit: cover; /* Ensure the map image covers the grid without distortion */
-            pointer-events: none; /* Allow user interaction with the grid beneath the map */
+            top: calc(25 * 20px / 2 - 10px);
+            left: calc(25 * 20px / 2 - 10px);
+            z-index: 1; /* Ensure the red square is on top */
+        }
+
+        /* Style for the navigation panel */
+        .navigation-panel {
+            margin-top: 20px; /* Add margin to separate from the grid */
+        }
+
+        /* Style for the arrow buttons */
+        .arrow-button {
+            width: 40px;
+            height: 40px;
+            background-color: lightgray; /* Change background color to light gray */
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            margin: 5px; /* Adjust margin between buttons */
+        }
+
+        /* Style for the disabled arrow buttons */
+        .arrow-button[disabled] {
+            background-color: lightgray;
         }
     </style>
 </head>
 <body>
+    <!-- Red square in the center -->
+    <div class="red-square"></div>
+
     <!-- Grid container for square spaces -->
-    <div class="grid-container" id="gridContainer">
+    <div id="gridContainer">
         <!-- Generate square spaces dynamically using JavaScript -->
+        <script>
+            for (var i = 1; i <= 25; i++) {
+                for (var j = 1; j <= 25; j++) {
+                    var square = document.createElement('div');
+                    square.className = 'square';
+                    document.getElementById('gridContainer').appendChild(square);
+                }
+            }
+        </script>
+    </div>
+
+    <!-- Navigation panel for movement -->
+    <div class="navigation-panel">
+        <button class="arrow-button" data-direction="up">&uarr;</button> <!-- Up button -->
+        <div>
+            <button class="arrow-button" data-direction="left">&larr;</button> <!-- Left button -->
+            <button class="arrow-button" data-direction="right">&rarr;</button> <!-- Right button -->
+        </div>
+        <button class="arrow-button" data-direction="down">&darr;</button> <!-- Down button -->
     </div>
 
     <!-- Script to handle map overlay functionality -->
-    <script>
-        // Function to handle map selection (you can replace this with your own logic)
-        function selectMap(mapUrl) {
-            const map = new Image();
-            map.src = mapUrl;
-            map.id = 'map';
-
-            // Append map image to the grid container
-            document.getElementById('gridContainer').appendChild(map);
-        }
-
-        // Function to generate square spaces
-        function generateGrid(numRows, numCols) {
-            const gridContainer = document.getElementById('gridContainer');
-            gridContainer.style.setProperty('--rows', numRows);
-            gridContainer.style.setProperty('--columns', numCols);
-
-            for (let i = 0; i < numRows * numCols; i++) {
-                const square = document.createElement('div');
-                square.classList.add('square');
-                gridContainer.appendChild(square);
-            }
-        }
-
-        // Calculate number of rows and columns based on viewport size
-        function calculateGridSize() {
-            const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
-            const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
-            const squareSize = 50; // Adjust square size based on your preference
-            const numRows = Math.floor(vh / squareSize);
-            const numCols = Math.floor(vw / squareSize);
-            return { numRows, numCols };
-        }
-
-        // Generate grid based on viewport size
-        const { numRows, numCols } = calculateGridSize();
-        generateGrid(numRows, numCols);
-
-        // Example of selecting a map (replace with your own logic)
-        const mapUrl = 'path/to/your/map/image.jpg';
-        selectMap(mapUrl);
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
