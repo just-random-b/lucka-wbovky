@@ -19,33 +19,45 @@
 
         /* Style for the grid container */
         #gridContainer {
-            display: grid;
-            grid-template-columns: repeat(25, 20px); /* 25 columns */
-            grid-template-rows: repeat(25, 20px); /* 25 rows */
-            grid-gap: 1px; /* Gap between grid cells */
-            background-color: black; /* Background color of the grid */
-            padding: 1px; /* Ensure the border is visible */
-            position: relative; /* Required for positioning the red square */
+            position: relative; /* Required for positioning the squares */
+            background-color: transparent; /* Transparent background for the grid */
+            width: 520px; /* Set explicit width for the grid */
+            height: 520px; /* Set explicit height for the grid */
+            border: 1px solid black; /* Add border to grid container */
+            box-sizing: border-box; /* Include border in dimensions */
+            overflow: hidden; /* Hide overflow to prevent squares from going beyond grid borders */
+            display: grid; /* Use grid layout */
+            grid-template-columns: repeat(25, 20px); /* Define 25 columns each with width 20px */
+            grid-template-rows: repeat(25, 20px); /* Define 25 rows each with height 20px */
         }
 
         /* Style for the square spaces */
         .square {
-            width: 100%; /* Occupy the full width of the grid cell */
-            height: 100%; /* Occupy the full height of the grid cell */
-            border: 1px solid white; /* White border around each square */
-            box-sizing: border-box; /* Include border in dimensions */
-            background-color: transparent; /* Transparent background for squares */
+            border: 1px solid black; /* Black border around each square */
+            background-color: white; /* White background for squares */
         }
 
         /* Style for the red square */
-        .red-square {
+        #redSquare {
             background-color: red;
             width: 20px;
             height: 20px;
-            position: absolute;
-            top: calc(25 * 20px / 2 - 10px);
-            left: calc(25 * 20px / 2 - 10px);
             z-index: 1; /* Ensure the red square is on top */
+            transition: top 0.2s, left 0.2s; /* Smooth transition for movement */
+            cursor: pointer; /* Add pointer cursor to indicate interactivity */
+            position: absolute; /* Ensure it's positioned correctly */
+            left: calc(50% - 10px); /* Start position in the middle of the grid */
+            top: calc(50% - 10px); /* Start position in the middle of the grid */
+        }
+
+        /* Style for the yellow squares */
+        .yellowSquare {
+            background-color: yellow;
+            width: 20px;
+            height: 20px;
+            z-index: 0; /* Behind red square */
+            position: absolute; /* Ensure it's positioned correctly */
+            transition: top 0.2s, left 0.2s; /* Smooth transition for movement */
         }
 
         /* Style for the navigation panel */
@@ -71,21 +83,24 @@
     </style>
 </head>
 <body>
-    <!-- Red square in the center -->
-    <div class="red-square"></div>
+    <!-- Dropdown menu -->
+    <select id="dropdown">
+        <option value="red">Base</option>
+        <option value="yellow1">Pod 1</option>
+        <option value="yellow2">Pod 2</option>
+        <option value="yellow3">Pod 3</option>
+        <option value="yellow4">Pod 4</option>
+    </select>
 
     <!-- Grid container for square spaces -->
     <div id="gridContainer">
-        <!-- Generate square spaces dynamically using JavaScript -->
-        <script>
-            for (var i = 1; i <= 25; i++) {
-                for (var j = 1; j <= 25; j++) {
-                    var square = document.createElement('div');
-                    square.className = 'square';
-                    document.getElementById('gridContainer').appendChild(square);
-                }
-            }
-        </script>
+        <!-- Red square -->
+        <div id="redSquare"></div>
+        <!-- Yellow squares -->
+        <div class="yellowSquare" style="top: calc(50% - 30px); left: calc(50% + 10px);"></div>
+        <div class="yellowSquare" style="top: calc(50% + 10px); left: calc(50% + 30px);"></div>
+        <div class="yellowSquare" style="top: calc(50% + 30px); left: calc(50% - 10px);"></div>
+        <div class="yellowSquare" style="top: calc(50% - 10px); left: calc(50% - 30px);"></div>
     </div>
 
     <!-- Navigation panel for movement -->
