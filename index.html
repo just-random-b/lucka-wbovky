@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map Overlay Web App</title>
+    <style>
+        /* Style for the square spaces */
+        .square {
+            width: calc(100vw / var(--columns)); /* Adjust based on your preference */
+            height: calc(100vw / var(--columns)); /* Adjust based on your preference */
+            border: 1px solid black;
+            display: inline-block;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Style for the grid container */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(var(--columns), 1fr);
+            grid-template-rows: repeat(var(--rows), 1fr);
+            grid-gap: 1px; /* Adjust gap size as needed */
+            position: relative; /* Required for positioning the map */
+            width: 100vw; /* Full width of the viewport */
+            height: 100vh; /* Full height of the viewport */
+            overflow: hidden; /* Prevent horizontal scrolling on mobile */
+        }
+
+        /* Style for the map image */
+        #map {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%; /* Make map image cover the full grid */
+            height: 100%; /* Make map image cover the full grid */
+            object-fit: cover; /* Ensure the map image covers the grid without distortion */
+            pointer-events: none; /* Allow user interaction with the grid beneath the map */
+        }
+    </style>
+</head>
+<body>
+    <!-- Grid container for square spaces -->
+    <div class="grid-container" id="gridContainer">
+        <!-- Generate square spaces dynamically using JavaScript -->
+    </div>
+
+    <!-- Script to handle map overlay functionality -->
+    <script>
+        // Function to handle map selection (you can replace this with your own logic)
+        function selectMap(mapUrl) {
+            const map = new Image();
+            map.src = mapUrl;
+            map.id = 'map';
+
+            // Append map image to the grid container
+            document.getElementById('gridContainer').appendChild(map);
+        }
+
+        // Function to generate square spaces
+        function generateGrid(numRows, numCols) {
+            const gridContainer = document.getElementById('gridContainer');
+            gridContainer.style.setProperty('--rows', numRows);
+            gridContainer.style.setProperty('--columns', numCols);
+
+            for (let i = 0; i < numRows * numCols; i++) {
+                const square = document.createElement('div');
+                square.classList.add('square');
+                gridContainer.appendChild(square);
+            }
+        }
+
+        // Calculate number of rows and columns based on viewport size
+        function calculateGridSize() {
+            const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+            const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+            const squareSize = 50; // Adjust square size based on your preference
+            const numRows = Math.floor(vh / squareSize);
+            const numCols = Math.floor(vw / squareSize);
+            return { numRows, numCols };
+        }
+
+        // Generate grid based on viewport size
+        const { numRows, numCols } = calculateGridSize();
+        generateGrid(numRows, numCols);
+
+        // Example of selecting a map (replace with your own logic)
+        const mapUrl = 'path/to/your/map/image.jpg';
+        selectMap(mapUrl);
+    </script>
+</body>
+</html>
