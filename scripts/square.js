@@ -61,3 +61,24 @@ function canMove(square, direction) {
 
     return false; // Movement not allowed
 }
+
+export function moveSquare(square, direction) {
+    const step = 20;
+    const currentTop = parseInt(square.style.top);
+    const currentLeft = parseInt(square.style.left);
+
+    switch (direction) {
+        case 'up':
+            square.style.top = `${currentTop - step}px`;
+            break;
+        case 'down':
+            square.style.top = `${currentTop + step}px`;
+            break;
+        case 'left':
+            square.style.left = `${currentLeft - step}px`;
+            break;
+        case 'right':
+            square.style.left = `${currentLeft + step}px`;
+            break;
+    }
+}

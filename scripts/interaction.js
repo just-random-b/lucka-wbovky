@@ -1,4 +1,5 @@
 // interaction.js
+import { moveSquare } from "./square";
 
 document.querySelectorAll('.arrow-button').forEach(button => {
     button.addEventListener('click', function () {
