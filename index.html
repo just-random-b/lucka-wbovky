@@ -4,67 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Map Overlay Web App</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f0f0f0;
-            flex-direction: column;
-        }
-
-        #gridContainer {
-            position: relative;
-            background-color: transparent;
-            width: 500px;
-            height: 500px;
-            border: 1px solid lightgray;
-            display: grid;
-            grid-template-columns: repeat(25, 20px);
-            grid-template-rows: repeat(25, 20px);
-        }
-
-        .square {
-            border: 1px solid lightgray;
-            background-color: white;
-        }
-
-        #redSquare, .yellowSquare {
-            width: 20px;
-            height: 20px;
-            position: absolute;
-            z-index: 1;
-        }
-
-        #redSquare {
-            background-color: red;
-        }
-
-        .yellowSquare {
-            background-color: yellow;
-        }
-
-        .navigation-panel {
-            margin-top: 20px;
-        }
-
-        .arrow-button {
-            width: 40px;
-            height: 40px;
-            background-color: lightgray;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            margin: 5px;
-        }
-
-        .arrow-button[disabled] {
-            background-color: gray;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <select id="dropdown">
@@ -92,6 +32,10 @@
         <button class="arrow-button" data-direction="down">&darr;</button>
     </div>
 
-    <script src="script.js"></script>
+    <script src="grid.js"></script>
+    <script src="squares.js"></script>
+    <script src="pods.js"></script>
+    <script src="interaction.js"></script>
+    
 </body>
 </html>
