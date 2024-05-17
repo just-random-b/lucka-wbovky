@@ -15,4 +15,5 @@ function initializeGrid() {
     }
 }
 
+// Call initializeGrid function
 initializeGrid();

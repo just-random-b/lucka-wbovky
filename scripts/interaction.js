@@ -1,4 +1,5 @@
 // interaction.js
+
 document.querySelectorAll('.arrow-button').forEach(button => {
     button.addEventListener('click', function () {
         const direction = this.getAttribute('data-direction');
