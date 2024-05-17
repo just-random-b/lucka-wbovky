@@ -41,4 +41,5 @@ function initializePods() {
     return { base, yellowSquares };
 }
 
-export { initializePods };
+export { initializePods, redSquare };
+
