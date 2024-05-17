@@ -1,42 +1,39 @@
-// pods.js
-import { createSquare } from './createSquare.js'; // Import the createSquare function
-
 function initializePods() {
     const yellowSquares = [];
     const gridSize = 25;
     const squareSize = 20;
     const gridContainer = document.getElementById('gridContainer');
 
-    // Calculate center position of the grid
-    const centerTop = Math.floor(gridSize / 2) * squareSize;
-    const centerLeft = Math.floor(gridSize / 2) * squareSize;
+    // Generate the base square at a random position
+    const baseTop = Math.floor(Math.random() * gridSize) * squareSize;
+    const baseLeft = Math.floor(Math.random() * gridSize) * squareSize;
+    console.log("Base top:", baseTop, "Base left:", baseLeft); // Add logging here
+    const base = createSquare('redSquare', 'baseSquare', 'red', baseTop, baseLeft, gridContainer);
 
-    // Generate the base square at the center position
-    const base = createSquare('redSquare', 'baseSquare', 'red', centerTop, centerLeft, gridContainer);
-
-    // Generate four pods attached to the base in different directions
+    // Directions for attaching pods to the base
     const directions = ['top', 'right', 'bottom', 'left'];
-    for (let i = 0; i < 4; i++) {
-        let top = centerTop;
-        let left = centerLeft;
 
-        // Calculate positions based on direction
+    // Generate four pods attached to the base
+    for (let i = 0; i < 4; i++) {
+        let top = baseTop;
+        let left = baseLeft;
+
         switch (directions[i]) {
             case 'top':
-                top -= squareSize * 2;
+                top -= squareSize;
                 break;
             case 'right':
-                left += squareSize * 2;
+                left += squareSize;
                 break;
             case 'bottom':
-                top += squareSize * 2;
+                top += squareSize;
                 break;
             case 'left':
-                left -= squareSize * 2;
+                left -= squareSize;
                 break;
         }
 
-        // Create and append pod square
+        console.log("Pod", i + 1, "top:", top, "left:", left); // Add logging here
         const pod = createSquare(`yellow${i + 1}`, 'yellowSquare', 'yellow', top, left, gridContainer);
         yellowSquares.push(pod);
     }
@@ -45,6 +42,3 @@ function initializePods() {
 }
 
 export { initializePods };
-
-
-export { initializePods }; // Export the initializePods function
