@@ -50,6 +50,24 @@ document.addEventListener("DOMContentLoaded", function () {
         return false;
     }
 
+    function getAdjacentYellowSquares() {
+        const adjacent = [];
+        const redTop = parseInt(redSquare.style.top);
+        const redLeft = parseInt(redSquare.style.left);
+        
+        yellowSquares.forEach(square => {
+            const top = parseInt(square.style.top);
+            const left = parseInt(square.style.left);
+
+            if ((top === redTop && (left === redLeft - 20 || left === redLeft + 20)) || 
+                (left === redLeft && (top === redTop - 20 || top === redTop + 20))) {
+                adjacent.push(square);
+            }
+        });
+
+        return adjacent;
+    }
+
     function moveSquare(square, direction) {
         const currentTop = parseInt(square.style.top);
         const currentLeft = parseInt(square.style.left);
@@ -83,6 +101,10 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll('.arrow-button').forEach(button => {
         button.addEventListener('click', function () {
             const direction = this.getAttribute('data-direction');
+            if (selectedSquare === redSquare) {
+                const adjacentSquares = getAdjacentYellowSquares();
+                adjacentSquares.forEach(square => moveSquare(square, direction));
+            }
             moveSquare(selectedSquare, direction);
         });
     });
@@ -118,6 +140,10 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         if (direction) {
+            if (selectedSquare === redSquare) {
+                const adjacentSquares = getAdjacentYellowSquares();
+                adjacentSquares.forEach(square => moveSquare(square, direction));
+            }
             moveSquare(selectedSquare, direction);
         }
     });
