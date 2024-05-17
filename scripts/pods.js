@@ -7,7 +7,7 @@ function initializePods() {
     // Generate the base square at a random position
     const baseTop = Math.floor(Math.random() * gridSize) * squareSize;
     const baseLeft = Math.floor(Math.random() * gridSize) * squareSize;
-    console.log("Base top:", baseTop, "Base left:", baseLeft); // Add logging here
+    console.log("Base top:", baseTop, "Base left:", baseLeft);
     const base = createSquare('redSquare', 'baseSquare', 'red', baseTop, baseLeft, gridContainer);
 
     // Directions for attaching pods to the base
@@ -41,5 +41,5 @@ function initializePods() {
     return { base, yellowSquares };
 }
 
-export { initializePods, redSquare };
+export { initializePods, base };
 

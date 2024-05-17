@@ -1,7 +1,7 @@
 // square.js
 
-// Import yellowSquares and redSquare
-import { yellowSquares, redSquare } from './pods.js';
+// Import yellowSquares and base
+import { yellowSquares, base } from './pods.js';
 
 export function isPositionOccupied(top, left) {
     // Check if the position is occupied by any yellow square
@@ -14,8 +14,8 @@ export function isPositionOccupied(top, left) {
     }
 
     // Check if the position is occupied by the red square
-    const redTop = parseInt(redSquare.style.top);
-    const redLeft = parseInt(redSquare.style.left);
+    const redTop = parseInt(base.style.top);
+    const redLeft = parseInt(base.style.left);
     if (redTop === top && redLeft === left) {
         return true;
     }
