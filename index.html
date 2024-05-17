@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smetakovina pro Licifuska</title>
+    <title>Map Overlay Web App</title>
     <style>
-        /* General styles */
         body {
             margin: 0;
             padding: 0;
@@ -17,73 +16,57 @@
             flex-direction: column;
         }
 
-        /* Style for the grid container */
         #gridContainer {
-            position: relative; /* Required for positioning the squares */
-            background-color: transparent; /* Transparent background for the grid */
-            width: 520px; /* Set explicit width for the grid */
-            height: 520px; /* Set explicit height for the grid */
-            border: 1px solid black; /* Add border to grid container */
-            box-sizing: border-box; /* Include border in dimensions */
-            overflow: hidden; /* Hide overflow to prevent squares from going beyond grid borders */
-            display: grid; /* Use grid layout */
-            grid-template-columns: repeat(25, 20px); /* Define 25 columns each with width 20px */
-            grid-template-rows: repeat(25, 20px); /* Define 25 rows each with height 20px */
+            position: relative;
+            background-color: transparent;
+            width: 500px;
+            height: 500px;
+            border: 1px solid lightgray;
+            display: grid;
+            grid-template-columns: repeat(25, 20px);
+            grid-template-rows: repeat(25, 20px);
         }
 
-        /* Style for the square spaces */
         .square {
-            border: 1px solid black; /* Black border around each square */
-            background-color: white; /* White background for squares */
+            border: 1px solid lightgray;
+            background-color: white;
         }
 
-        /* Style for the red square */
+        #redSquare, .yellowSquare {
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            z-index: 1;
+        }
+
         #redSquare {
             background-color: red;
-            width: 20px;
-            height: 20px;
-            z-index: 1; /* Ensure the red square is on top */
-            transition: top 0.2s, left 0.2s; /* Smooth transition for movement */
-            cursor: pointer; /* Add pointer cursor to indicate interactivity */
-            position: absolute; /* Ensure it's positioned correctly */
-            left: calc(50% - 10px); /* Start position in the middle of the grid */
-            top: calc(50% - 10px); /* Start position in the middle of the grid */
         }
 
-        /* Style for the yellow squares */
         .yellowSquare {
             background-color: yellow;
-            width: 20px;
-            height: 20px;
-            z-index: 0; /* Behind red square */
-            position: absolute; /* Ensure it's positioned correctly */
-            transition: top 0.2s, left 0.2s; /* Smooth transition for movement */
         }
 
-        /* Style for the navigation panel */
         .navigation-panel {
-            margin-top: 20px; /* Add margin to separate from the grid */
+            margin-top: 20px;
         }
 
-        /* Style for the arrow buttons */
         .arrow-button {
             width: 40px;
             height: 40px;
-            background-color: lightgray; /* Change background color to light gray */
+            background-color: lightgray;
             border: none;
             border-radius: 50%;
             cursor: pointer;
-            margin: 5px; /* Adjust margin between buttons */
+            margin: 5px;
         }
 
-        /* Style for the disabled arrow buttons */
         .arrow-button[disabled] {
-            background-color: lightgray;
+            background-color: gray;
         }
     </style>
 </head>
 <body>
-    <!-- Dropdown menu -->
     <select id="dropdown">
         <option value="red">Base</option>
         <option value="yellow1">Pod 1</option>
@@ -92,28 +75,23 @@
         <option value="yellow4">Pod 4</option>
     </select>
 
-    <!-- Grid container for square spaces -->
     <div id="gridContainer">
-        <!-- Red square -->
         <div id="redSquare"></div>
-        <!-- Yellow squares -->
-        <div class="yellowSquare" style="top: calc(50% - 30px); left: calc(50% + 10px);"></div>
-        <div class="yellowSquare" style="top: calc(50% + 10px); left: calc(50% + 30px);"></div>
-        <div class="yellowSquare" style="top: calc(50% + 30px); left: calc(50% - 10px);"></div>
-        <div class="yellowSquare" style="top: calc(50% - 10px); left: calc(50% - 30px);"></div>
+        <div class="yellowSquare" id="yellow1"></div>
+        <div class="yellowSquare" id="yellow2"></div>
+        <div class="yellowSquare" id="yellow3"></div>
+        <div class="yellowSquare" id="yellow4"></div>
     </div>
 
-    <!-- Navigation panel for movement -->
     <div class="navigation-panel">
-        <button class="arrow-button" data-direction="up">&uarr;</button> <!-- Up button -->
+        <button class="arrow-button" data-direction="up">&uarr;</button>
         <div>
-            <button class="arrow-button" data-direction="left">&larr;</button> <!-- Left button -->
-            <button class="arrow-button" data-direction="right">&rarr;</button> <!-- Right button -->
+            <button class="arrow-button" data-direction="left">&larr;</button>
+            <button class="arrow-button" data-direction="right">&rarr;</button>
         </div>
-        <button class="arrow-button" data-direction="down">&darr;</button> <!-- Down button -->
+        <button class="arrow-button" data-direction="down">&darr;</button>
     </div>
 
-    <!-- Script to handle map overlay functionality -->
     <script src="script.js"></script>
 </body>
 </html>
