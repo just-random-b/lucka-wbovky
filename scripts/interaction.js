@@ -1,5 +1,5 @@
 import { moveSquare } from './square.js';
-import { redSquare, yellowSquares } from './pods.js';
+import { redSquare } from './pods.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     const arrowButtons = document.querySelectorAll('.arrow-button');
