@@ -1,5 +1,4 @@
-// grid.js
-function initializeGrid() {
+export function initializeGrid() {
     const gridContainer = document.getElementById('gridContainer');
     const gridSize = 25;
     const squareSize = 20;
@@ -15,5 +14,4 @@ function initializeGrid() {
     }
 }
 
-// Call initializeGrid function
 initializeGrid();

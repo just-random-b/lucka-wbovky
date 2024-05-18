@@ -1,35 +1,13 @@
-// interaction.js
-import { moveSquare } from "./square";
+import { moveSquare } from './square.js';
+import { redSquare, yellowSquares } from './pods.js';
 
-document.querySelectorAll('.arrow-button').forEach(button => {
-    button.addEventListener('click', function () {
-        const direction = this.getAttribute('data-direction');
-        moveSquare(selectedSquare, direction);
+document.addEventListener('DOMContentLoaded', () => {
+    const arrowButtons = document.querySelectorAll('.arrow-button');
+
+    arrowButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const direction = button.dataset.direction;
+            moveSquare(redSquare, direction);
+        });
     });
-});
-
-document.getElementById('dropdown').addEventListener('change', function () {
-    const value = this.value;
-    if (value === 'red') {
-        selectedSquare = redSquare;
-    } else {
-        const index = parseInt(value.replace('yellow', '')) - 1;
-        selectedSquare = yellowSquares[index];
-    }
-});
-
-document.addEventListener('keydown', function (event) {
-    let direction;
-
-    switch (event.key) {
-        case 'ArrowUp': direction = 'up'; break;
-        case 'ArrowDown': direction = 'down'; break;
-        case 'ArrowLeft': direction = 'left'; break;
-        case 'ArrowRight': direction = 'right'; break;
-        default: return;
-    }
-
-    if (direction) {
-        moveSquare(selectedSquare, direction);
-    }
 });

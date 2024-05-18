@@ -1,43 +1,20 @@
-body {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f0f0f0;
-    flex-direction: column;
-}
-
 #gridContainer {
     position: relative;
-    background-color: transparent;
     width: 500px;
     height: 500px;
-    border: 1px solid lightgray;
-    display: grid;
-    grid-template-columns: repeat(25, 20px);
-    grid-template-rows: repeat(25, 20px);
+    border: 1px solid #000;
+    margin: 20px auto;
 }
 
 .square {
-    border: 1px solid lightgray;
-    background-color: white;
-}
-
-#redSquare, .yellowSquare {
     width: 20px;
     height: 20px;
+    border: 1px solid #ccc;
     position: absolute;
-    z-index: 1;
 }
 
-#redSquare {
+.baseSquare {
     background-color: red;
-    width: 40px;
-    height: 40px;
-    top: 240px; /* Adjusted top position */
-    left: 240px; /* Adjusted left position */
 }
 
 .yellowSquare {
@@ -45,19 +22,12 @@ body {
 }
 
 .navigation-panel {
-    margin-top: 20px;
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
 }
 
 .arrow-button {
-    width: 40px;
-    height: 40px;
-    background-color: lightgray;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
     margin: 5px;
-}
-
-.arrow-button[disabled] {
-    background-color: gray;
+    padding: 10px;
 }

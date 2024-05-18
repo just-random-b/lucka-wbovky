@@ -7,35 +7,31 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <select id="dropdown">
-        <option value="red">Base</option>
-        <option value="yellow1">Pod 1</option>
-        <option value="yellow2">Pod 2</option>
-        <option value="yellow3">Pod 3</option>
-        <option value="yellow4">Pod 4</option>
-    </select>
+    <div id="app">
+        <select id="dropdown">
+            <option value="red">Base</option>
+            <option value="yellow1">Pod 1</option>
+            <option value="yellow2">Pod 2</option>
+            <option value="yellow3">Pod 3</option>
+            <option value="yellow4">Pod 4</option>
+        </select>
 
-    <div id="gridContainer">
-        <div id="redSquare"></div>
-        <div class="yellowSquare" id="yellow1"></div>
-        <div class="yellowSquare" id="yellow2"></div>
-        <div class="yellowSquare" id="yellow3"></div>
-        <div class="yellowSquare" id="yellow4"></div>
-    </div>
-
-    <div class="navigation-panel">
-        <button class="arrow-button" data-direction="up">&uarr;</button>
-        <div>
-            <button class="arrow-button" data-direction="left">&larr;</button>
-            <button class="arrow-button" data-direction="right">&rarr;</button>
+        <div id="gridContainer">
+            <!-- Grid squares will be dynamically created here -->
         </div>
-        <button class="arrow-button" data-direction="down">&darr;</button>
+
+        <div class="navigation-panel">
+            <button class="arrow-button" data-direction="up">&uarr;</button>
+            <div>
+                <button class="arrow-button" data-direction="left">&larr;</button>
+                <button class="arrow-button" data-direction="right">&rarr;</button>
+            </div>
+            <button class="arrow-button" data-direction="down">&darr;</button>
+        </div>
     </div>
 
-    <script type="module" src="scripts/grid.js"></script>
-    <script type="module" src="scripts/interaction.js"></script>
-    <script type="module" src="scripts/pods.js"></script>
-    <script type="module" src="scripts/square.js"></script>
-    <script type="module" src="scripts/createSquare.js"></script>
+    <script src="scripts/grid.js" type="module"></script>
+    <script src="scripts/pods.js" type="module"></script>
+    <script src="scripts/interaction.js" type="module"></script>
 </body>
 </html>

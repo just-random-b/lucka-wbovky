@@ -1,27 +1,57 @@
-// square.js
+import { redSquare, yellowSquares } from './pods.js';
 
-// Import yellowSquares and base
-import { yellowSquares, base } from './pods.js';
+export function moveSquare(square, direction) {
+    if (canMove(square, direction)) {
+        const currentTop = parseInt(square.style.top);
+        const currentLeft = parseInt(square.style.left);
+        const step = 20;
 
-export function isPositionOccupied(top, left) {
-    // Check if the position is occupied by any yellow square
+        switch (direction) {
+            case 'up':
+                square.style.top = `${currentTop - step}px`;
+                break;
+            case 'down':
+                square.style.top = `${currentTop + step}px`;
+                break;
+            case 'left':
+                square.style.left = `${currentLeft - step}px`;
+                break;
+            case 'right':
+                square.style.left = `${currentLeft + step}px`;
+                break;
+        }
+
+        if (square === redSquare) {
+            const adjacentSquares = [
+                [currentTop - step, currentLeft],
+                [currentTop + step, currentLeft],
+                [currentTop, currentLeft - step],
+                [currentTop, currentLeft + step]
+            ];
+
+            for (const yellowSquare of yellowSquares) {
+                const squareTop = parseInt(yellowSquare.style.top);
+                const squareLeft = parseInt(yellowSquare.style.left);
+
+                for (const [adjTop, adjLeft] of adjacentSquares) {
+                    if (squareTop === adjTop && squareLeft === adjLeft) {
+                        moveSquare(yellowSquare, direction);
+                    }
+                }
+            }
+        }
+    }
+}
+
+function getBlockingSquare(top, left) {
     for (const yellowSquare of yellowSquares) {
         const squareTop = parseInt(yellowSquare.style.top);
         const squareLeft = parseInt(yellowSquare.style.left);
         if (squareTop === top && squareLeft === left) {
-            return true;
+            return yellowSquare;
         }
     }
-
-    // Check if the position is occupied by the red square
-    const redTop = parseInt(base.style.top);
-    const redLeft = parseInt(base.style.left);
-    if (redTop === top && redLeft === left) {
-        return true;
-    }
-
-    // If neither yellow nor red square occupies the position, it's not occupied
-    return false;
+    return null;
 }
 
 function canMove(square, direction) {
@@ -48,37 +78,35 @@ function canMove(square, direction) {
 
     const gridSize = 500;
     if (newTop >= 0 && newTop < gridSize && newLeft >= 0 && newLeft < gridSize) {
-        // Check if the new position is occupied
         const isBlocked = isPositionOccupied(newTop, newLeft);
-        if (!isBlocked) {
-            // If the path is not blocked, allow movement
-            return true;
+        if (isBlocked) {
+            const blockingSquare = getBlockingSquare(newTop, newLeft);
+            if (blockingSquare) {
+                moveSquare(blockingSquare, direction);
+                return true;
+            }
         } else {
-            // If the path is blocked, return false to prevent movement
-            return false;
+            return true;
         }
     }
 
-    return false; // Movement not allowed
+    return false;
 }
 
-export function moveSquare(square, direction) {
-    const step = 20;
-    const currentTop = parseInt(square.style.top);
-    const currentLeft = parseInt(square.style.left);
-
-    switch (direction) {
-        case 'up':
-            square.style.top = `${currentTop - step}px`;
-            break;
-        case 'down':
-            square.style.top = `${currentTop + step}px`;
-            break;
-        case 'left':
-            square.style.left = `${currentLeft - step}px`;
-            break;
-        case 'right':
-            square.style.left = `${currentLeft + step}px`;
-            break;
+export function isPositionOccupied(top, left) {
+    for (const yellowSquare of yellowSquares) {
+        const squareTop = parseInt(yellowSquare.style.top);
+        const squareLeft = parseInt(yellowSquare.style.left);
+        if (squareTop === top && squareLeft === left) {
+            return true;
+        }
     }
+
+    const redTop = parseInt(redSquare.style.top);
+    const redLeft = parseInt(redSquare.style.left);
+    if (redTop === top && redLeft === left) {
+        return true;
+    }
+
+    return false;
 }
