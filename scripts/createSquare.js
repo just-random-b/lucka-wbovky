@@ -1,4 +1,3 @@
-//comment
 export function createSquare(id, className, backgroundColor, top, left, gridContainer) {
     const square = document.createElement('div');
     square.id = id;
